@@ -5,14 +5,7 @@
   "main": "./src/app.js",
   "scripts": {
     "seed": "node seed.db/seed_db.js",
-    "prestart": "npm run dev:mongo-stop && npm run dev:mongo-start",
-    "start": "nodemon ./src/app.js",
-    "predebug": "npm run dev:mongo-stop && npm run dev:mongo-start",
-    "debug": "nodemon --inspect ./src/app.js",
-    "postdebug": "npm run dev:mongo-stop",
-    "dev:mongo-start": "docker run --name psique_db -d -p 27017:27017 -v psique_db:/data/db mongo:4.0",
-    "dev:mongo-stop": "docker rm -f psique_db",
-    "dev:mongo-enter": "docker exec -ti psique_db mongo"
+    "start": "nodemon ./src/app.js"
   },
   "keywords": [],
   "author": "Adán Lijó González",
