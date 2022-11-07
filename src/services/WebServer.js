@@ -9,7 +9,6 @@ class Server {
 
     constructor() {
         this.app = express();
-        this.host = process.env.SERVER_HOST;
         this.port = process.env.SERVER_PORT || 3000;
 
         // * Iniciar el logger
@@ -27,7 +26,7 @@ class Server {
 
     listen() {
         this.app.listen(this.port, () => {
-            logInfo(`Server iniciado en http://${this.host}:${this.port}`);
+            logInfo(`Server iniciado en http://localhost:${this.port}`);
         });
     }
 
