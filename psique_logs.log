@@ -1,0 +1,20 @@
+{"level":"info","message":"Server iniciado en http://localhost:8080","timestamp":"2022-11-07T21:20:31.825Z"}
+{"level":"error","message":"Error al conectar con la base de datos","timestamp":"2022-11-07T21:20:33.047Z"}
+{"level":"info","message":"Server iniciado en http://localhost:8080","timestamp":"2022-11-07T21:20:54.000Z"}
+{"level":"error","message":"Error al conectar con la base de datos","timestamp":"2022-11-07T21:20:54.592Z"}
+{"level":"debug","message":"GET access from / - reqId: 564d4dc0-5ee2-11ed-a63f-e90915712533","timestamp":"2022-11-07T21:22:52.193Z"}
+{"level":"error","message":"404: No existe ninguna URI en el server que coincida con la Request-URI - reqId: 5658e680-5ee2-11ed-a63f-e90915712533","timestamp":"2022-11-07T21:22:52.265Z"}
+{"level":"debug","message":"GET access from /api/doctores - reqId: 595f6fc0-5ee2-11ed-a63f-e90915712533","timestamp":"2022-11-07T21:22:57.341Z"}
+{"level":"info","message":"Server iniciado en http://localhost:8080","timestamp":"2022-11-07T21:34:47.313Z"}
+{"level":"info","message":"Conexión establecida con la database","timestamp":"2022-11-07T21:34:47.840Z"}
+{"level":"debug","message":"GET access from / - reqId: 086effc0-5ee4-11ed-ace1-c326f79543c6","timestamp":"2022-11-07T21:35:00.543Z"}
+{"level":"debug","message":"GET access from /api/doctores - reqId: 0ae09c00-5ee4-11ed-ace1-c326f79543c6","timestamp":"2022-11-07T21:35:04.641Z"}
+{"level":"info","message":"Operation succeed - reqId: 0ae09c00-5ee4-11ed-ace1-c326f79543c6","timestamp":"2022-11-07T21:35:04.694Z"}
+{"level":"debug","message":"GET access from /api/doctores - reqId: 153ff1a0-5ee4-11ed-ace1-c326f79543c6","timestamp":"2022-11-07T21:35:22.042Z"}
+{"level":"info","message":"Operation succeed - reqId: 153ff1a0-5ee4-11ed-ace1-c326f79543c6","timestamp":"2022-11-07T21:35:22.092Z"}
+{"level":"debug","message":"GET access from /api/doctores - reqId: 28fbf9f0-5ee4-11ed-ace1-c326f79543c6","timestamp":"2022-11-07T21:35:55.151Z"}
+{"level":"info","message":"Operation succeed - reqId: 28fbf9f0-5ee4-11ed-ace1-c326f79543c6","timestamp":"2022-11-07T21:35:55.195Z"}
+{"level":"debug","message":"POST access from /login - reqId: 2fab8e00-5ee4-11ed-ace1-c326f79543c6","timestamp":"2022-11-07T21:36:06.380Z"}
+{"level":"info","message":"Operation succeed - reqId: 2fab8e00-5ee4-11ed-ace1-c326f79543c6","timestamp":"2022-11-07T21:36:06.560Z"}
+{"level":"debug","message":"GET access from /api/citas - reqId: 32c63b80-5ee4-11ed-ace1-c326f79543c6","timestamp":"2022-11-07T21:36:11.716Z"}
+{"level":"info","message":"Operation succeed - reqId: 32c63b80-5ee4-11ed-ace1-c326f79543c6","timestamp":"2022-11-07T21:36:11.944Z"}

@@ -1,0 +1,28 @@
+const jwt = require('jsonwebtoken');
+
+const Usuario = require('../../../model/Usuario');
+
+const CustomError = require('../errors/CustomError');
+
+
+const validaRoleDoctoresUsuarios = async (req, res, next) => {
+    const token = req.header('JWT');
+
+    try {
+        const payload = jwt.verify(token, process.env.JWT_PRIVATE_KEY);
+
+        // * Almaceno el usuario asociado al token como propiedad de la request
+        const usuario = await Usuario.findOne({ nif: payload.nifUsuario });
+
+        if (usuario.rol != 'ROLE_ADMIN') {
+            return next(new CustomError(`El servicio necesita alguno de estos roles: ROLE_ADMIN, y ${usuario.nif} no lo tiene`, 403));
+        }
+
+        return next();
+    } catch (error) {
+        return next(new CustomError('Usuario no encontrado', 404));
+    }
+}
+
+
+module.exports = validaRoleDoctoresUsuarios;

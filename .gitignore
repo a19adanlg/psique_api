@@ -1,0 +1,11 @@
+########################################
+# NO EDITES EN ESTA SECCIÓN DELIMITADA #
+########################################
+
+node_modules/
+
+# Fichero sensible:
+.env
+
+##### FIN DE LA SECCIÓN DELIMITADA #####
+########################################

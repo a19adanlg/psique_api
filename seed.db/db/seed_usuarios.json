@@ -1,0 +1,62 @@
+[
+  {
+    "nif": "00000000T",
+    "nombre": "admin",
+    "apellido1": "",
+    "apellido2": "",
+    "email": "admin@psique.es",
+    "password": "abc123.",
+    "rol": "ROLE_ADMIN",
+    "fotoPerfil": "https://wallpapers.com/images/high/aesthetic-profile-picture-anime-boy-art-sfacqyfqe8ulwvho.jpg"
+  },
+  {
+    "nif": "11111111H",
+    "nombre": "David",
+    "apellido1": "Tennant",
+    "apellido2": "(Tenth)",
+    "email": "doctor10@psique.es",
+    "password": "abc123.",
+    "rol": "ROLE_DOCTOR",
+    "fotoPerfil": "https://1fid.com/wp-content/uploads/2022/07/boy-anime-wallpaper-image-for-profile-pic-81.jpg"
+  },
+  {
+    "nif": "22222222J",
+    "nombre": "Jodie",
+    "apellido1": "Whittaker",
+    "apellido2": "(Thirteenth)",
+    "email": "doctor13@psique.es",
+    "password": "abc123.",
+    "rol": "ROLE_DOCTOR",
+    "fotoPerfil": "https://i.pinimg.com/originals/48/79/ac/4879aca409e08a79f63acc77853fb700.jpg"
+  },
+  {
+    "nif": "53797308D",
+    "nombre": "Matt",
+    "apellido1": "Smith",
+    "apellido2": "(Eleventh)",
+    "email": "doctor11@psique.es",
+    "password": "abc123.",
+    "rol": "ROLE_DOCTOR",
+    "fotoPerfil": "https://i.pinimg.com/736x/57/3f/22/573f22a1aa17b366f5489745dc4704e1.jpg"
+  },
+  {
+    "nif": "33333333P",
+    "nombre": "Paciente1",
+    "apellido1": "Bar",
+    "apellido2": "Bar",
+    "email": "paciente1@psique.es",
+    "password": "abc123.",
+    "rol": "ROLE_PACIENTE",
+    "fotoPerfil": "https://aniyuki.com/wp-content/uploads/2021/12/aniyuki-sad-anime-avatar-image-32.jpg"
+  },
+  {
+    "nif": "44444444A",
+    "nombre": "Paciente2",
+    "apellido1": "Foo",
+    "apellido2": "Foo",
+    "email": "paciente2@psique.es",
+    "password": "abc123.",
+    "rol": "ROLE_PACIENTE",
+    "fotoPerfil": "https://www.geekmi.news/__export/1620685020637/sites/debate/img/2021/05/10/codeg2.jpg_1898064555.jpg"
+  }
+]

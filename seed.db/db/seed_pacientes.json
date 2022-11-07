@@ -1,0 +1,32 @@
+[
+  {
+    "nif": "33333333P",
+    "nombre": "Paciente1",
+    "apellido1": "Bar",
+    "apellido2": "Bar",
+    "fecNac": "2022-02-22",
+    "telefono": "+34666666666",
+    "direccionPostal": {
+      "pais": "España",
+      "cp": "15705",
+      "provincia": "A Coruña",
+      "ciudad": "Santiago de Compostela",
+      "direccion": "Rúa de San Clemente, s/n"
+    }
+  },
+  {
+    "nif": "44444444A",
+    "nombre": "Paciente2",
+    "apellido1": "Foo",
+    "apellido2": "Foo",
+    "fecNac": "2011-11-11",
+    "telefono": "+34777777777",
+    "direccionPostal": {
+      "pais": "España",
+      "cp": "15705",
+      "provincia": "A Coruña",
+      "ciudad": "Santiago de Compostela",
+      "direccion": "Rúa de San Clemente, s/n"
+    }
+  }
+]
