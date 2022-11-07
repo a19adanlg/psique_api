@@ -18,3 +18,18 @@
 {"level":"info","message":"Operation succeed - reqId: 2fab8e00-5ee4-11ed-ace1-c326f79543c6","timestamp":"2022-11-07T21:36:06.560Z"}
 {"level":"debug","message":"GET access from /api/citas - reqId: 32c63b80-5ee4-11ed-ace1-c326f79543c6","timestamp":"2022-11-07T21:36:11.716Z"}
 {"level":"info","message":"Operation succeed - reqId: 32c63b80-5ee4-11ed-ace1-c326f79543c6","timestamp":"2022-11-07T21:36:11.944Z"}
+{"level":"info","message":"Server iniciado en http://localhost:8080","timestamp":"2022-11-07T22:10:34.021Z"}
+{"level":"info","message":"Conexión establecida con la database","timestamp":"2022-11-07T22:10:35.022Z"}
+{"level":"debug","message":"GET access from / - reqId: 029df290-5ee9-11ed-a40a-516fa1b02d2c","timestamp":"2022-11-07T22:10:38.271Z"}
+{"level":"debug","message":"GET access from /api/doctores - reqId: 0560bc10-5ee9-11ed-a40a-516fa1b02d2c","timestamp":"2022-11-07T22:10:42.898Z"}
+{"level":"info","message":"Operation succeed - reqId: 0560bc10-5ee9-11ed-a40a-516fa1b02d2c","timestamp":"2022-11-07T22:10:42.956Z"}
+{"level":"info","message":"Server iniciado en http://localhost:8080","timestamp":"2022-11-07T22:13:52.086Z"}
+{"level":"info","message":"Conexión establecida con la database","timestamp":"2022-11-07T22:13:52.828Z"}
+{"level":"debug","message":"GET access from /api/citas - reqId: 77874ca0-5ee9-11ed-8e86-f57224f8fee4","timestamp":"2022-11-07T22:13:54.651Z"}
+{"level":"info","message":"Operation succeed - reqId: 77874ca0-5ee9-11ed-8e86-f57224f8fee4","timestamp":"2022-11-07T22:13:54.747Z"}
+{"level":"info","message":"Server iniciado en http://localhost:8080","timestamp":"2022-11-07T22:14:37.994Z"}
+{"level":"error","message":"Error al conectar con la base de datos","timestamp":"2022-11-07T22:14:37.999Z"}
+{"level":"info","message":"Server iniciado en http://localhost:8080","timestamp":"2022-11-07T22:14:57.854Z"}
+{"level":"info","message":"Conexión establecida con la database","timestamp":"2022-11-07T22:14:58.801Z"}
+{"level":"debug","message":"GET access from /api/citas - reqId: a21ffe30-5ee9-11ed-944f-8ff2cda33da3","timestamp":"2022-11-07T22:15:06.011Z"}
+{"level":"info","message":"Operation succeed - reqId: a21ffe30-5ee9-11ed-944f-8ff2cda33da3","timestamp":"2022-11-07T22:15:06.251Z"}
