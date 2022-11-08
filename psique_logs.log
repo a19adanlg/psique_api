@@ -33,3 +33,10 @@
 {"level":"info","message":"Conexión establecida con la database","timestamp":"2022-11-07T22:14:58.801Z"}
 {"level":"debug","message":"GET access from /api/citas - reqId: a21ffe30-5ee9-11ed-944f-8ff2cda33da3","timestamp":"2022-11-07T22:15:06.011Z"}
 {"level":"info","message":"Operation succeed - reqId: a21ffe30-5ee9-11ed-944f-8ff2cda33da3","timestamp":"2022-11-07T22:15:06.251Z"}
+{"level":"info","message":"Server iniciado en http://localhost:8080","timestamp":"2022-11-08T01:01:10.005Z"}
+{"level":"info","message":"Conexión establecida con la database","timestamp":"2022-11-08T01:01:10.894Z"}
+{"level":"debug","message":"GET access from / - reqId: 0abfee70-5f01-11ed-be36-d5b5f1dd2149","timestamp":"2022-11-08T01:02:39.838Z"}
+{"level":"error","message":"404: No existe ninguna URI en el server que coincida con la Request-URI - reqId: 0acaeaf0-5f01-11ed-be36-d5b5f1dd2149","timestamp":"2022-11-08T01:02:39.904Z"}
+{"level":"debug","message":"GET access from /api/doctores - reqId: 0d994d30-5f01-11ed-be36-d5b5f1dd2149","timestamp":"2022-11-08T01:02:44.612Z"}
+{"level":"info","message":"Operation succeed - reqId: 0d994d30-5f01-11ed-be36-d5b5f1dd2149","timestamp":"2022-11-08T01:02:44.672Z"}
+{"level":"error","message":"404: No existe ninguna URI en el server que coincida con la Request-URI - reqId: 10470810-5f01-11ed-be36-d5b5f1dd2149","timestamp":"2022-11-08T01:02:49.105Z"}
