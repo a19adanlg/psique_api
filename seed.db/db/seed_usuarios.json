@@ -7,6 +7,16 @@
       "email": "admin@psique.es",
       "password": "abc123.",
       "rol": "ROLE_ADMIN",
+      "fotoPerfil": "https://pic1.mangapicgallery.com/r/essay/88/md_/1780579_13114490.jpg"
+    },
+    {
+      "nif": "99999999R",
+      "nombre": "admin",
+      "apellido1": "",
+      "apellido2": "",
+      "email": "admin@psique.es",
+      "password": "abc123.",
+      "rol": "ROLE_ADMIN",
       "fotoPerfil": "https://wallpapers.com/images/high/aesthetic-profile-picture-anime-boy-art-sfacqyfqe8ulwvho.jpg"
     },
     {
