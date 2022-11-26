@@ -18,7 +18,8 @@
     "express-logger-unique-req-id": "^1.0.4",
     "express-validator": "^6.14.2",
     "jsonwebtoken": "^8.5.1",
-    "mongoose": "^6.7.0"
+    "mongoose": "^6.7.0",
+    "serve-favicon": "^2.5.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.20"

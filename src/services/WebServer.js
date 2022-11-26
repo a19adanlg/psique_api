@@ -1,5 +1,7 @@
-const cors = require('cors')
+const cors = require('cors');
+const path = require('path');
 const express = require('express');
+const favicon = require('serve-favicon');
 
 const { dbConnection } = require('../configs/config_db');
 const { startLogger, logDebug, logError, logInfo } = require('./../helpers/logger');
@@ -9,7 +11,7 @@ class Server {
 
     constructor() {
         this.app = express();
-        this.host = 'localhost';
+        this.host = process.env.HOST;
         this.port = process.env.PORT;
 
         // * Iniciar el logger
@@ -50,6 +52,8 @@ class Server {
         this.app.use(express.urlencoded({ extended: true }));
         // ? Procesar el body de la request (parseo)
         this.app.use(express.json());
+        // ? Favicon
+        this.app.use(favicon(path.join(__dirname, '..', '..', 'public', 'img', 'favicon.ico')));
     }
 
     routing() {
