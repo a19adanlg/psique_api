@@ -7,7 +7,7 @@
     "email": "admin@psique.es",
     "password": "abc123.",
     "rol": "ROLE_ADMIN",
-    "fotoPerfil": "https://wallpapers.com/images/high/aesthetic-profile-picture-anime-boy-art-sfacqyfqe8ulwvho.jpg"
+    "fotoPerfil": "https://s3.amazonaws.com/comicgeeks/characters/avatars/34503.jpg?t=1650800969"
   },
   {
     "nif": "00000000T",
@@ -27,7 +27,7 @@
     "email": "doctor10@psique.es",
     "password": "abc123.",
     "rol": "ROLE_DOCTOR",
-    "fotoPerfil": "https://1fid.com/wp-content/uploads/2022/07/boy-anime-wallpaper-image-for-profile-pic-81.jpg"
+    "fotoPerfil": "https://i.pinimg.com/originals/2f/e0/6c/2fe06c3acec7d5a78c1706ad7a96a821.jpg"
   },
   {
     "nif": "22222222J",
@@ -37,7 +37,7 @@
     "email": "doctor13@psique.es",
     "password": "abc123.",
     "rol": "ROLE_DOCTOR",
-    "fotoPerfil": "https://i.pinimg.com/originals/48/79/ac/4879aca409e08a79f63acc77853fb700.jpg"
+    "fotoPerfil": "https://i.pinimg.com/736x/86/5b/9d/865b9d92abb68d91e52e30df80e2d858.jpg"
   },
   {
     "nif": "33333333P",
@@ -47,7 +47,7 @@
     "email": "paciente1@psique.es",
     "password": "abc123.",
     "rol": "ROLE_PACIENTE",
-    "fotoPerfil": "https://aniyuki.com/wp-content/uploads/2021/12/aniyuki-sad-anime-avatar-image-32.jpg"
+    "fotoPerfil": "https://pbs.twimg.com/media/FhwYF5QVsAAKX8b.jpg"
   },
   {
     "nif": "44444444A",
@@ -57,6 +57,6 @@
     "email": "paciente2@psique.es",
     "password": "abc123.",
     "rol": "ROLE_PACIENTE",
-    "fotoPerfil": "https://www.geekmi.news/__export/1620685020637/sites/debate/img/2021/05/10/codeg2.jpg_1898064555.jpg"
+    "fotoPerfil": "https://cutewallpaper.org/22/minoru-mineta-wallpapers/3090017448.jpg"
   }
 ]
