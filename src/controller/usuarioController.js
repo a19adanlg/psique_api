@@ -1,3 +1,4 @@
+const Sentry = require('@sentry/node');
 const jwt = require('jsonwebtoken');
 const { genSaltSync, hashSync } = require('bcryptjs');
 
@@ -5,12 +6,13 @@ const Doctor = require('../model/Doctor');
 const Paciente = require('../model/Paciente');
 const Usuario = require('../model/Usuario');
 
-const CustomError = require("../services/routes/errors/CustomError");
+const PsiqueError = require("../services/routes/errors/PsiqueError");
 const { logDebug, logInfo } = require('./../helpers/logger');
 
 
 const usuarioGET = async (req, res, next) => {
     try {
+        Sentry.captureMessage(`GET petition ${req.originalUrl} from: ${req.socket.remoteAddress}`);
         logDebug("GET access from /api/usuarios");
 
         const usuario = await Usuario.findOne({ nif: req.params.id });
@@ -20,15 +22,16 @@ const usuarioGET = async (req, res, next) => {
 
             res.status(200).json(usuario);
         } else {
-            return next(new CustomError("Usuario solicitado no encontrado", 404));
+            return next(new PsiqueError("Usuario solicitado no encontrado", 404));
         }
     } catch (error) {
-        return next(new CustomError("Error inesperado en la petici\u00F3n GET", 400));
+        return next(new PsiqueError("Error inesperado en la petici\u00F3n GET", 400));
     }
 };
 
 const usuariosGET = async (req, res, next) => {
     try {
+        Sentry.captureMessage(`GET petition ${req.originalUrl} from: ${req.socket.remoteAddress}`);
         logDebug("GET access from /api/usuarios");
 
         const usuarios = await Usuario.find();
@@ -37,30 +40,31 @@ const usuariosGET = async (req, res, next) => {
 
         res.status(200).json(usuarios);
     } catch (error) {
-        return next(new CustomError("Error inesperado en la petici\u00F3n GET", 400));
+        return next(new PsiqueError("Error inesperado en la petici\u00F3n GET", 400));
     }
 };
 
 const usuariosPOST = async (req, res, next) => {
     try {
+        Sentry.captureMessage(`POST petition ${req.originalUrl} from: ${req.socket.remoteAddress}`);
         logDebug("POST access from /api/usuarios");
 
         let { nif, nombre, apellido1, apellido2, email, password, rol, fotoPerfil } = req.body;
 
         if (!nifValido(nif))
-            return next(new CustomError("El NIF no es v\u00E1lido", 400));
+            return next(new PsiqueError("El NIF no es v\u00E1lido", 400));
         if (email && !emailValido(email))
-            return next(new CustomError("El email no es v\u00E1lido", 400));
+            return next(new PsiqueError("El email no es v\u00E1lido", 400));
         if (!nombre)
-            return next(new CustomError("El nombre no puede estar vac\u00EDo", 400));
+            return next(new PsiqueError("El nombre no puede estar vac\u00EDo", 400));
         if (!password)
-            return next(new CustomError("El password no puede estar vac\u00EDo", 400));
+            return next(new PsiqueError("El password no puede estar vac\u00EDo", 400));
 
         // * Comprobamos si existe el usuario
         const existeUsuario = await Usuario.findOne({ nif });
 
         if (existeUsuario)
-            return next(new CustomError("Ya existe un usuario con ese NIF", 409));
+            return next(new PsiqueError("Ya existe un usuario con ese NIF", 409));
 
         // * Únicamente un admin podrá crear un usuario admin o un doctor
         // * Por lo tanto, comprobaremos si el usuario es un admin
@@ -74,9 +78,9 @@ const usuariosPOST = async (req, res, next) => {
                 const usuario = await Usuario.findOne({ nif: payload.nifUsuario });
 
                 if (usuario.rol != 'ROLE_ADMIN')
-                    return next(new CustomError("S\u00F3lo un admin puede crear un usuario admin o un doctor", 403));
+                    return next(new PsiqueError("S\u00F3lo un admin puede crear un usuario admin o un doctor", 403));
             } else {
-                return next(new CustomError("S\u00F3lo un admin puede crear un usuario admin o un doctor", 403));
+                return next(new PsiqueError("S\u00F3lo un admin puede crear un usuario admin o un doctor", 403));
             }
         } else {
             rol = 'ROLE_PACIENTE';
@@ -103,12 +107,13 @@ const usuariosPOST = async (req, res, next) => {
             "usuario": newUsuario
         });
     } catch (error) {
-        return next(new CustomError("Error inesperado en la petici\u00F3n POST", 400));
+        return next(new PsiqueError("Error inesperado en la petici\u00F3n POST", 400));
     }
 };
 
 const usuariosPUT = async (req, res, next) => {
     try {
+        Sentry.captureMessage(`PUT petition ${req.originalUrl} from: ${req.socket.remoteAddress}`);
         logDebug("PUT access from /api/usuarios");
 
         // * Extraemos lo que se va a actualizar y filtramos los valores nulos
@@ -132,14 +137,14 @@ const usuariosPUT = async (req, res, next) => {
         // * Por lo tanto, comprobaremos que el usuario es un administrador
         if (toUpdate.rol) {
             if (usuario.rol != 'ROLE_ADMIN') {
-                return next(new CustomError("S\u00F3lo un admin puede modificar el rol de un usuario", 403));
+                return next(new PsiqueError("S\u00F3lo un admin puede modificar el rol de un usuario", 403));
             }
         }
 
         // * Sólo un administrador o el propio usuario puede modificar un usuario
         if (req.params.id == usuario.nif || usuario.rol == 'ROLE_ADMIN') {
             if (toUpdate.email && !emailValido(toUpdate.email))
-                return next(new CustomError("El email no es v\u00E1lido", 400));
+                return next(new PsiqueError("El email no es v\u00E1lido", 400));
 
             if (toUpdate.password) {
                 const salt = genSaltSync(10);
@@ -156,18 +161,19 @@ const usuariosPUT = async (req, res, next) => {
                     "usuario": modUsuario
                 });
             } else {
-                return next(new CustomError("No existe el usuario solicitado", 404));
+                return next(new PsiqueError("No existe el usuario solicitado", 404));
             }
         } else {
-            return next(new CustomError("No tienes permisos para modificar este usuario", 403));
+            return next(new PsiqueError("No tienes permisos para modificar este usuario", 403));
         }
     } catch (error) {
-        return next(new CustomError("Error inesperado en la petici\u00F3n PUT", 400));
+        return next(new PsiqueError("Error inesperado en la petici\u00F3n PUT", 400));
     }
 };
 
 const usuariosDELETE = async (req, res, next) => {
     try {
+        Sentry.captureMessage(`DELETE petition ${req.originalUrl} from: ${req.socket.remoteAddress}`);
         logDebug("DELETE access from /api/usuarios");
 
         const delUsuario = await Usuario.findOne({ nif: req.params.id });
@@ -184,18 +190,19 @@ const usuariosDELETE = async (req, res, next) => {
                     "usuario": delUsuario
                 });
             } else {
-                return next(new CustomError("No es posible eliminar un usuario administrador", 403));
+                return next(new PsiqueError("No es posible eliminar un usuario administrador", 403));
             }
         } else {
-            return next(new CustomError("No existe el usuario solicitado", 404))
+            return next(new PsiqueError("No existe el usuario solicitado", 404))
         }
     } catch (error) {
-        return next(new CustomError("Error inesperado en la petici\u00F3n DELETE", 400));
+        return next(new PsiqueError("Error inesperado en la petici\u00F3n DELETE", 400));
     }
 };
 
 const meGET = async (req, res, next) => {
     try {
+        Sentry.captureMessage(`GET petition ${req.originalUrl} from: ${req.socket.remoteAddress}`);
         logDebug("GET access from /api/usuarios/me");
 
         const token = req.header('JWT');

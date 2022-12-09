@@ -1,5 +1,8 @@
 const cors = require('cors');
 const path = require('path');
+const helmet = require('helmet');
+const Sentry = require('@sentry/node');
+const Tracing = require('@sentry/tracing');
 const express = require('express');
 const favicon = require('serve-favicon');
 
@@ -16,6 +19,9 @@ class Server {
 
         // * Iniciar el logger
         startLogger(this.app);
+
+        // * Sentry
+        this.sentry()
 
         // * Setup middlewares
         this.middlewares();
@@ -45,9 +51,25 @@ class Server {
         return this;
     }
 
+    sentry() {
+        Sentry.init({
+            dsn: "https://a4ae991aad7045019470405cd57c41df@o4504293601181696.ingest.sentry.io/4504293604458497",
+            integrations: [
+                new Sentry.Integrations.Http({ tracing: true })
+              ],
+            tracesSampleRate: 1.0,
+        });
+    }
+
     middlewares() {
         // ? Habilitar CORS
         this.app.use(cors());
+        // ? Helmet
+        this.app.use(helmet());
+        // ? Sentry
+        this.app.use(Sentry.Handlers.requestHandler());
+        this.app.use(Sentry.Handlers.tracingHandler());
+        this.app.use(Sentry.Handlers.errorHandler());
         // ? Procesar datos enviados desde formulario
         this.app.use(express.urlencoded({ extended: true }));
         // ? Procesar el body de la request (parseo)
@@ -77,6 +99,7 @@ class Server {
                 "msg": "Bienvenido a la API de Psique"
             });
 
+            Sentry.captureMessage(`GET petition ${req.originalUrl} from: ${req.socket.remoteAddress}`);
             logDebug("GET access from /");
         });
 
@@ -96,6 +119,7 @@ class Server {
                 if (error.HTTPCode >= 400 && error.HTTPCode < 500 && error.detail) {
                     res.statusMessage = error.HTTPCode + ': ' + error.message;
 
+                    Sentry.captureException(error);
                     logError(error.HTTPCode + ': ' + error.message);
 
                     return res.status(error.HTTPCode).json({
@@ -104,6 +128,7 @@ class Server {
                 } else if (error.HTTPCode >= 500) {
                     res.statusMessage = 'Error inesperado';
 
+                    Sentry.captureException(error);
                     logError(error.HTTPCode + ': ' + error.message);
 
                     return res.status(error.HTTPCode).json({
@@ -112,6 +137,7 @@ class Server {
                 } else {
                     res.statusMessage = error.message;
 
+                    Sentry.captureException(error);
                     logError(error.HTTPCode + ': ' + error.message);
 
                     return res.status(error.HTTPCode).json({
@@ -121,6 +147,7 @@ class Server {
             } else {
                 res.statusMessage = 'Error inesperado';
 
+                Sentry.captureException('500: Unexpected error');
                 logError('500: Error inesperado');
 
                 return res.status(500).json({

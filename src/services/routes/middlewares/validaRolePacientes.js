@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken');
 
 const Usuario = require('../../../model/Usuario');
 
-const CustomError = require('../errors/CustomError');
+const PsiqueError = require('../errors/PsiqueError');
 
 
 const validaRolePacientes = async (req, res, next) => {
@@ -15,12 +15,12 @@ const validaRolePacientes = async (req, res, next) => {
         const usuario = await Usuario.findOne({ nif: payload.nifUsuario });
 
         if (usuario.rol != 'ROLE_ADMIN' && usuario.rol != 'ROLE_DOCTOR') {
-            return next(new CustomError(`El servicio necesita alguno de estos roles: ROLE_ADMIN, ROLE_DOCTOR y ${usuario.nif} no lo tiene`, 403));
+            return next(new PsiqueError(`El servicio necesita alguno de estos roles: ROLE_ADMIN, ROLE_DOCTOR y ${usuario.nif} no lo tiene`, 403));
         }
 
         return next();
     } catch (error) {
-        return next(new CustomError('Usuario no encontrado', 404));
+        return next(new PsiqueError('Usuario no encontrado', 404));
     }
 }
 

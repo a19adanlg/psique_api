@@ -1,13 +1,16 @@
+const Sentry = require('@sentry/node');
+
 const Cita = require('../model/Cita');
 const Doctor = require('../model/Doctor');
 const Usuario = require('../model/Usuario');
 
-const CustomError = require("../services/routes/errors/CustomError");
+const PsiqueError = require("../services/routes/errors/PsiqueError");
 const { logDebug, logInfo } = require('./../helpers/logger');
 
 
 const doctorGET = async (req, res, next) => {
     try {
+        Sentry.captureMessage(`GET petition ${req.originalUrl} from: ${req.socket.remoteAddress}`);
         logDebug("GET access from /api/doctores");
 
         const doctor = await Doctor.findOne({ nif: req.params.id });
@@ -17,15 +20,16 @@ const doctorGET = async (req, res, next) => {
 
             res.status(200).json(doctor);
         } else {
-            return next(new CustomError("Doctor solicitado no encontrado", 404));
+            return next(new PsiqueError("Doctor solicitado no encontrado", 404));
         }
     } catch (error) {
-        return next(new CustomError("Error inesperado en la petici\u00F3n GET", 400));
+        return next(new PsiqueError("Error inesperado en la petici\u00F3n GET", 400));
     }
 };
 
 const doctoresGET = async (req, res, next) => {
     try {
+        Sentry.captureMessage(`GET petition ${req.originalUrl} from: ${req.socket.remoteAddress}`);
         logDebug("GET access from /api/doctores");
 
         const doctores = await Doctor.find();
@@ -34,22 +38,23 @@ const doctoresGET = async (req, res, next) => {
 
         res.status(200).json(doctores);
     } catch (error) {
-        return next(new CustomError("Error inesperado en la petici\u00F3n GET", 400));
+        return next(new PsiqueError("Error inesperado en la petici\u00F3n GET", 400));
     }
 };
 
 const doctoresPOST = async (req, res, next) => {
     try {
+        Sentry.captureMessage(`POST petition ${req.originalUrl} from: ${req.socket.remoteAddress}`);
         logDebug("POST access from /api/doctores");
 
         const { nif, nombre, apellido1, apellido2, especialidad, fotoDoctor } = req.body;
 
         if (!nifValido(nif))
-            return next(new CustomError("El NIF no es v\u00E1lido", 400));
+            return next(new PsiqueError("El NIF no es v\u00E1lido", 400));
         if (!nombre)
-            return next(new CustomError("El nombre no puede estar vac\u00EDo", 400));
+            return next(new PsiqueError("El nombre no puede estar vac\u00EDo", 400));
         if (!especialidad || (especialidad != 'Psicología' && especialidad != 'Psiquiatría'))
-            return next(new CustomError("Debes indicar una especialidad entre 'Psicolog\u00EDa' y 'Psiquiatr\u00EDa'", 400));
+            return next(new PsiqueError("Debes indicar una especialidad entre 'Psicolog\u00EDa' y 'Psiquiatr\u00EDa'", 400));
         if (!fotoDoctor)
             req.body.fotoDoctor = "https://i.imgur.com/AtjuEkK.png";
 
@@ -57,7 +62,7 @@ const doctoresPOST = async (req, res, next) => {
         const existeDoctor = await Doctor.findOne({ nif });
 
         if (existeDoctor)
-            return next(new CustomError("Ya existe un doctor con ese NIF", 409));
+            return next(new PsiqueError("Ya existe un doctor con ese NIF", 409));
 
         const newDoctor = new Doctor(req.body);
 
@@ -72,12 +77,13 @@ const doctoresPOST = async (req, res, next) => {
             "doctor": newDoctor
         });
     } catch (error) {
-        return next(new CustomError("Error inesperado en la petici\u00F3n POST", 400));
+        return next(new PsiqueError("Error inesperado en la petici\u00F3n POST", 400));
     }
 };
 
 const doctoresPUT = async (req, res, next) => {
     try {
+        Sentry.captureMessage(`PUT petition ${req.originalUrl} from: ${req.socket.remoteAddress}`);
         logDebug("PUT access from /api/doctores");
 
         // * Extraemos lo que se va a actualizar y filtramos los valores nulos
@@ -92,7 +98,7 @@ const doctoresPUT = async (req, res, next) => {
         }
 
         if (toUpdate.especialidad && (toUpdate.especialidad != 'Psicología' && toUpdate.especialidad != 'Psiquiatría'))
-            return next(new CustomError("Debes indicar una especialidad entre 'Psicolog\u00EDa' y 'Psiquiatr\u00EDa'", 400));
+            return next(new PsiqueError("Debes indicar una especialidad entre 'Psicolog\u00EDa' y 'Psiquiatr\u00EDa'", 400));
 
         const modDoctor = await Doctor.findOneAndUpdate({ nif: req.params.id }, toUpdate, { new: true });
 
@@ -104,15 +110,16 @@ const doctoresPUT = async (req, res, next) => {
                 "doctor": modDoctor
             });
         } else {
-            return next(new CustomError("No existe el doctor solicitado", 404))
+            return next(new PsiqueError("No existe el doctor solicitado", 404))
         }
     } catch (error) {
-        return next(new CustomError("Error inesperado en la petici\u00F3n PUT", 400));
+        return next(new PsiqueError("Error inesperado en la petici\u00F3n PUT", 400));
     }
 };
 
 const doctoresDELETE = async (req, res, next) => {
     try {
+        Sentry.captureMessage(`DELETE petition ${req.originalUrl} from: ${req.socket.remoteAddress}`);
         logDebug("DELETE access from /api/doctores");
 
         const delDoctor = await Doctor.findOneAndRemove({ nif: req.params.id }, { new: true });
@@ -126,7 +133,7 @@ const doctoresDELETE = async (req, res, next) => {
                 if (delUsuario.rol != 'ROLE_ADMIN') {
                     await Usuario.findOneAndRemove({ nif: req.params.id }, { new: true });
                 } else {
-                    return next(new CustomError("No es posible eliminar un usuario administrador", 403));
+                    return next(new PsiqueError("No es posible eliminar un usuario administrador", 403));
                 }
 
             // * Eliminaremos también las citas asociadas a este doctor
@@ -140,10 +147,10 @@ const doctoresDELETE = async (req, res, next) => {
                 "usuario": delUsuario
             });
         } else {
-            return next(new CustomError("No existe el doctor solicitado", 404))
+            return next(new PsiqueError("No existe el doctor solicitado", 404))
         }
     } catch (error) {
-        return next(new CustomError("Error inesperado en la petici\u00F3n DELETE", 400));
+        return next(new PsiqueError("Error inesperado en la petici\u00F3n DELETE", 400));
     }
 };
 

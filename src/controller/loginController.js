@@ -1,14 +1,16 @@
+const Sentry = require('@sentry/node');
 const { compareSync } = require('bcryptjs');
 const { sign } = require('jsonwebtoken');
 
 const Usuario = require('../model/Usuario');
 
-const CustomError = require('../services/routes/errors/CustomError');
+const PsiqueError = require('../services/routes/errors/PsiqueError');
 const { logDebug, logInfo } = require('./../helpers/logger');
 
 
 // * LOGIN
 const loginPOST = async (req, res, next) => {
+    Sentry.captureMessage(`POST petition ${req.originalUrl} from: ${req.socket.remoteAddress}`);
     logDebug("POST access from /login");
 
     const { nif, password } = req.body;
@@ -33,20 +35,20 @@ const loginPOST = async (req, res, next) => {
                             token
                         });
                     } else {
-                        return next(new CustomError("El password no es correcto", 401));
+                        return next(new PsiqueError("El password no es correcto", 401));
                     }
                 } else {
-                    return next(new CustomError("No existe ning\u00FAn usuario con ese NIF o no tiene permiso de acceso", 403));
+                    return next(new PsiqueError("No existe ning\u00FAn usuario con ese NIF o no tiene permiso de acceso", 403));
                 }
             } catch (error) {
                 console.log(error)
                 return next(new Error());
             }
         } else {
-            return next(new CustomError("El NIF o password no son v\u00E1lidos", 400));
+            return next(new PsiqueError("El NIF o password no son v\u00E1lidos", 400));
         }
     } else {
-        return next(new CustomError("Ya existe una sesi\u00F3n iniciada", 409));
+        return next(new PsiqueError("Ya existe una sesi\u00F3n iniciada", 409));
     }
 };
 
