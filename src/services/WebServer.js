@@ -35,16 +35,19 @@ class Server {
 
     listen() {
         this.app.listen(this.port || 3000, () => {
-            logInfo(`Server iniciado en http://${this.host}:${this.port}`);
+            Sentry.captureMessage(`Server started at http://${this.host}:${this.port}`);
+            logInfo(`Server started at http://${this.host}:${this.port}`);
         });
     }
 
     connectDb() {
         dbConnection()
             .then(msg => {
+                Sentry.captureMessage(msg);
                 logInfo(msg);
             })
             .catch(err => {
+                Sentry.captureException(err);
                 logError(err.message);
             });
 
