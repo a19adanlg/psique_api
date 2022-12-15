@@ -3,6 +3,7 @@ const path = require('path');
 const helmet = require('helmet');
 const Sentry = require('@sentry/node');
 const Tracing = require('@sentry/tracing');
+const rateLimit = require('express-rate-limit');
 const express = require('express');
 const favicon = require('serve-favicon');
 
@@ -20,14 +21,14 @@ class Server {
         // * Iniciar el logger
         startLogger(this.app);
 
-        // * Sentry
-        this.sentry()
-
         // * Setup middlewares
         this.middlewares();
 
         // * Routing
         this.routing();
+
+        // * Sentry
+        this.sentry()
 
         // * Errors
         this.errors();
@@ -59,9 +60,14 @@ class Server {
             dsn: "https://a4ae991aad7045019470405cd57c41df@o4504293601181696.ingest.sentry.io/4504293604458497",
             integrations: [
                 new Sentry.Integrations.Http({ tracing: true })
-              ],
+            ],
             tracesSampleRate: 1.0,
         });
+
+        // ? Sentry
+        this.app.use(Sentry.Handlers.requestHandler());
+        this.app.use(Sentry.Handlers.tracingHandler());
+        this.app.use(Sentry.Handlers.errorHandler());
     }
 
     middlewares() {
@@ -69,16 +75,21 @@ class Server {
         this.app.use(cors());
         // ? Helmet
         this.app.use(helmet());
-        // ? Sentry
-        this.app.use(Sentry.Handlers.requestHandler());
-        this.app.use(Sentry.Handlers.tracingHandler());
-        this.app.use(Sentry.Handlers.errorHandler());
         // ? Procesar datos enviados desde formulario
         this.app.use(express.urlencoded({ extended: true }));
         // ? Procesar el body de la request (parseo)
         this.app.use(express.json());
         // ? Favicon
         this.app.use(favicon(path.join(__dirname, '..', '..', 'public', 'img', 'favicon.ico')));
+        // ? Petitions limiter
+        const limiter = rateLimit({
+            windowMs: 5 * 60 * 1000,
+            max: 150,
+            message: 'ERROR: Too many petitions from this IP',
+            standardHeaders: true,
+            legacyHeaders: false
+        });
+        this.app.use(limiter)
     }
 
     routing() {
